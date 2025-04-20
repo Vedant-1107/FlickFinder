@@ -1,119 +1,136 @@
+/* Global Styles */
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #121212;
-    color: #fff;
-    padding: 2rem;
-    max-width: 900px;
-    margin: auto;
+    color: #f5f5f5;
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
     text-align: center;
-    color: #f39c12;
+    color: #fff;
+    margin-top: 20px;
 }
 
 .input-container {
-    position: relative;
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+    gap: 15px;
 }
 
 input[type="text"] {
-    width: 100%;
-    padding: 10px;
+    padding: 12px 20px;
     font-size: 16px;
-    border: none;
-    outline: none;
-    border-radius: 6px;
-    background-color: #1f1f1f;
+    width: 350px;
+    border-radius: 50px;
+    border: 1px solid #333;
+    background-color: #1c1c1c;
     color: #fff;
-    margin-bottom: 10px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #ff5722;
+    box-shadow: 0 0 10px rgba(255, 87, 34, 0.5);
+    outline: none;
 }
 
 button {
-    padding: 10px;
-    width: 100%;
+    padding: 12px 25px;
     font-size: 16px;
-    background-color: #f39c12;
-    border: none;
+    background-color: #ff5722;
     color: white;
-    border-radius: 6px;
+    border: none;
+    border-radius: 50px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
-    background-color: #e67e22;
+    background-color: #e64a19;
+    transform: translateY(-3px);
+}
+
+button:focus {
+    outline: none;
 }
 
 .autocomplete {
-    list-style: none;
-    margin-top: -10px;
-    padding: 0;
-    background: #1e1e1e;
-    border: 1px solid #333;
-    max-height: 200px;
-    overflow-y: auto;
-    border-radius: 5px;
+    background-color: #333;
+    list-style-type: none;
+    padding: 10px;
     position: absolute;
-    width: 100%;
-    z-index: 10;
+    width: 350px;
+    border-radius: 5px;
+    z-index: 1;
 }
 
 .autocomplete li {
     padding: 10px;
     cursor: pointer;
-    border-bottom: 1px solid #333;
 }
 
 .autocomplete li:hover {
-    background-color: #333;
+    background-color: #555;
 }
 
 .error {
-    color: #ff4d4d;
+    color: red;
     text-align: center;
-    margin-top: 10px;
+    font-size: 18px;
 }
 
 .movie-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     margin-top: 20px;
+    gap: 20px;
 }
 
+/* Movie Card Styles */
 .movie-card {
-    background-color: #1f1f1f;
+    background-color: #1e1e1e;
     border-radius: 10px;
+    width: 250px;
     overflow: hidden;
-    transition: transform 0.2s;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(255,255,255,0.05);
     position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
 }
 
 .movie-card:hover {
-    transform: scale(1.05);
+    transform: translateY(-10px);
 }
 
-.movie-card img {
+/* Image Styles */
+.movie-image {
     width: 100%;
-    height: 260px;
+    height: 350px;  /* Fixed height for image */
     object-fit: cover;
+    border-radius: 10px 10px 0 0;
 }
 
-.movie-card .details {
-    padding: 10px;
-    display: none;
+/* Movie Info Below Image */
+.movie-info {
+    padding: 15px;
+    color: #fff;
 }
 
-.movie-card:hover .details {
-    display: block;
-    background-color: rgba(18, 18, 18, 0.95);
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow-y: auto;
+.movie-info h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.movie-info p {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.movie-info strong {
+    color: #ff5722;
 }
