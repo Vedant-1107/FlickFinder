@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: flickfinder-backend
+    env: python
+    buildCommand: ""
+    startCommand: python app.py
+    envVars:
+      - key: TMDB_API_KEY
+        value: 3abc359fb8c35f8045b1fade0efc0f6d
