@@ -1,0 +1,119 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #121212;
+    color: #fff;
+    padding: 2rem;
+    max-width: 900px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    color: #f39c12;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    background-color: #1f1f1f;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    background-color: #f39c12;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #e67e22;
+}
+
+.autocomplete {
+    list-style: none;
+    margin-top: -10px;
+    padding: 0;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 5px;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+}
+
+.autocomplete li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #333;
+}
+
+.autocomplete li:hover {
+    background-color: #333;
+}
+
+.error {
+    color: #ff4d4d;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.movie-card {
+    background-color: #1f1f1f;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255,255,255,0.05);
+    position: relative;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+}
+
+.movie-card .details {
+    padding: 10px;
+    display: none;
+}
+
+.movie-card:hover .details {
+    display: block;
+    background-color: rgba(18, 18, 18, 0.95);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+}

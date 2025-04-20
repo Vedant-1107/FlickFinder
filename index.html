@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html ng-app="movieApp">
+<head>
+    <meta charset="UTF-8">
+    <title>FlickFinder</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="icon" type="image/png" href="assets/fav.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="MovieController">
+
+    <h1>FlickFinder</h1>
+
+    <div class="input-container">
+        <input type="text"
+               ng-model="movieName"
+               placeholder="Enter movie title..."
+               ng-keypress="handleKeyPress($event)"
+               ng-change="searchTitles()"
+               autocomplete="off" />
+        <ul class="autocomplete" ng-if="suggestions.length">
+            <li ng-repeat="suggestion in suggestions"
+                ng-click="selectSuggestion(suggestion)">
+                {{suggestion}}
+            </li>
+        </ul>
+        <button ng-click="getRecommendations()">Get Recommendations</button>
+    </div>
+
+    <div class="error" ng-if="error">{{error}}</div>
+
+    <div class="movie-grid">
+        <div class="movie-card" ng-repeat="movie in recommendations">
+            <img ng-src="{{movie.poster_url}}" alt="Poster not available">
+            <div class="details">
+                <h3>{{movie.title}}</h3>
+                <p><strong>Release Date:</strong> {{movie.release_date}}</p>
+                <p><strong>Plot:</strong> {{movie.plot}}</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const app = angular.module("movieApp", []);
+        app.controller("MovieController", function($scope, $http) {
+            $scope.movieName = "";
+            $scope.suggestions = [];
+            $scope.recommendations = [];
+            $scope.error = "";
+
+            $scope.searchTitles = function () {
+                if ($scope.movieName.length < 2) {
+                    $scope.suggestions = [];
+                    return;
+                }
+                $http.get("http://localhost:5000/search", {
+                    params: { q: $scope.movieName }
+                }).then(function(response) {
+                    $scope.suggestions = response.data.titles;
+                });
+            };
+
+            $scope.selectSuggestion = function(title) {
+                $scope.movieName = title;
+                $scope.suggestions = [];
+            };
+
+            $scope.handleKeyPress = function(event) {
+                if (event.which === 13) {
+                    $scope.getRecommendations();
+                    $scope.suggestions = [];
+                }
+            };
+
+            $scope.getRecommendations = function () {
+                $http.get("http://localhost:5000/recommend", {
+                    params: { movie: $scope.movieName }
+                }).then(function(response) {
+                    const titles = response.data.recommendations;
+                    const details = response.data.movie_details;
+                    $scope.recommendations = titles.map((title, i) => ({
+                        title,
+                        ...details[i]
+                    }));
+                    $scope.error = "";
+                }, function(error) {
+                    $scope.recommendations = [];
+                    $scope.error = (error.status === 404) ? "Movie not found." : "Something went wrong.";
+                });
+            };
+        });
+    </script>
+
+</body>
+</html>
