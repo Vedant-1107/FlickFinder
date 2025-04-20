@@ -1,0 +1,15 @@
+{
+    "name": "flickfinder-frontend",
+    "version": "1.0.0",
+    "description": "FlickFinder frontend",
+    "main": "index.html",
+    "scripts": {
+      "start": "live-server ."
+    },
+    "author": "Your Name",
+    "license": "MIT",
+    "devDependencies": {
+      "live-server": "^1.2.0"
+    }
+}
+  
