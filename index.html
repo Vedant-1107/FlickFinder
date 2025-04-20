@@ -31,18 +31,19 @@
 
     <div class="movie-grid">
         <div class="movie-card" ng-repeat="movie in recommendations">
-            <img ng-src="{{movie.poster_url}}" alt="Poster not available">
-            <div class="details">
+            <img ng-src="{{movie.poster_url}}" alt="Poster not available" class="movie-image">
+            <div class="movie-info">
                 <h3>{{movie.title}}</h3>
                 <p><strong>Release Date:</strong> {{movie.release_date}}</p>
                 <p><strong>Plot:</strong> {{movie.plot}}</p>
             </div>
         </div>
     </div>
-
     <script>
         const app = angular.module("movieApp", []);
         app.controller("MovieController", function($scope, $http) {
+            const BASE_URL = "https://flickfinder-068g.onrender.com";  // Change this if using local dev
+
             $scope.movieName = "";
             $scope.suggestions = [];
             $scope.recommendations = [];
@@ -53,10 +54,12 @@
                     $scope.suggestions = [];
                     return;
                 }
-                $http.get("http://localhost:5000/search", {
+                $http.get(BASE_URL + "/search", {
                     params: { q: $scope.movieName }
                 }).then(function(response) {
                     $scope.suggestions = response.data.titles;
+                }).catch(() => {
+                    $scope.suggestions = [];
                 });
             };
 
@@ -73,7 +76,12 @@
             };
 
             $scope.getRecommendations = function () {
-                $http.get("http://localhost:5000/recommend", {
+                if (!$scope.movieName) {
+                    $scope.error = "Please enter a movie title.";
+                    return;
+                }
+
+                $http.get(BASE_URL + "/recommend", {
                     params: { movie: $scope.movieName }
                 }).then(function(response) {
                     const titles = response.data.recommendations;
@@ -83,7 +91,7 @@
                         ...details[i]
                     }));
                     $scope.error = "";
-                }, function(error) {
+                }).catch(function(error) {
                     $scope.recommendations = [];
                     $scope.error = (error.status === 404) ? "Movie not found." : "Something went wrong.";
                 });
