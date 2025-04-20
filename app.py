@@ -61,8 +61,8 @@ def get_movie_details(movie_id):
 def recommend():
     movie_title = request.args.get("movie")
     index = get_index_from_title(movie_title)
-    if index is None:
-        return jsonify({"error": "Movie not found"}), 404
+    if not movie_title:
+        return jsonify({"error": "Missing movie parameter"}), 400
 
     similar_movies = list(enumerate(cosine_sim[index]))
     sorted_movies = sorted(similar_movies, key=lambda x: x[1], reverse=True)[1:6]
