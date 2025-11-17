@@ -1,0 +1,10 @@
+fastapi==0.121.2
+uvicorn[standard]==0.38.0
+python-dotenv==1.2.1
+httpx==0.28.1
+motor==3.7.1             # async MongoDB driver
+redis==7.0.1
+python-jose==3.5.0       # JWT handling
+passlib[argon2-cffi]==25.1.0   # password hashing
+pydantic==2.12.4
+typing-extensions==4.15.0
